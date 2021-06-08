@@ -19,4 +19,14 @@
 using Vertex = int32_t;
 using Label = int32_t;
 
-#endif  // COMMON_H_
+// compator for priority queue
+// it makes priority queue pop the element in ascending order of second element of pair
+struct cmp
+{
+    bool operator()(std::pair<Vertex, int> &a, std::pair<Vertex, int> &b)
+    {
+        return a.second >= b.second;
+    }
+};
+
+#endif // COMMON_H_

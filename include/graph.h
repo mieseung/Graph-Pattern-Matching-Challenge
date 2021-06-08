@@ -35,12 +35,22 @@ class Graph {
 
   inline bool IsNeighbor(Vertex u, Vertex v) const;
 
+  void buildDAG(Graph G);
+
+  int** childQuery = NULL;
+  int** parentQuery = NULL;
+  int* numChild = NULL;
+  int* numParent = NULL;
+
+  Vertex root;
+
  private:
   int32_t graph_id_;
 
   size_t num_vertices_;
   size_t num_edges_;
   size_t num_labels_;
+
 
   std::vector<size_t> label_frequency_;
 
@@ -51,6 +61,16 @@ class Graph {
   std::vector<Vertex> adj_array_;
 
   Label max_label_;
+
+  Vertex findRoot(Graph G);
+
+    void merge_by_degree(int *data, int start, int mid, int end, Graph G, int *sorted);
+
+    void merge_sort_by_degree(int *data, int start, int end, Graph G, int *sorted);
+
+    void merge_by_label_frequency(int *data, int start, int mid, int end, Graph G, int *sorted);
+
+    void merge_sort_by_label_frequency(int *data, int start, int end, Graph G, int *sorted);
 };
 
 /**
@@ -193,5 +213,6 @@ inline bool Graph::IsNeighbor(Vertex u, Vertex v) const {
   return offset >= GetNeighborStartOffset(u, GetLabel(v)) &&
          offset < GetNeighborEndOffset(u, GetLabel(v)) && *it == v;
 }
+
 
 #endif  // GRAPH_H_
